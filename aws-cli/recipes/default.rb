@@ -32,9 +32,18 @@ directory '/home/ubuntu/.aws' do
   action :create
 end
 
-template '/.aws/credentials' do 
-  source 'credentials.erb' 
-  owner 'ubuntu'
-  group 'ubuntu'
-  mode '0644'
+template("/.aws/credentials") do
+provider Chef::Provider::Template
+action "create"
+retries 0
+retry_delay 2
+path "/.aws/credentials"
+backup 5
+atomic_update true
+source "credentials.erb"
+cookbook_name "aws-cli"
+recipe_name "default"
+mode "0644"
+owner "ubuntu"
+group "ubuntu"
 end
