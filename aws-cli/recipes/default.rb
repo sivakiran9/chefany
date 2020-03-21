@@ -32,7 +32,9 @@ directory '/home/ubuntu/.aws' do
   action :create
 end
 
-cookbook_file '/home/ubuntu/.aws/credentials' do
-  source 'credentials'
+template '/.aws/credentials' do 
+  source 'credentials.erb' 
+  owner 'ubuntu'
+  group 'ubuntu'
+  mode '0644'
 end
-
