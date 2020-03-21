@@ -6,6 +6,7 @@
 
 execute "run apt-get update command" do
   command "sudo apt-get update"
+  not_if { ::File.exist?('/var/lib/apt/periodic/update-success-stamp') }
 end
 
 execute "Install docker dependencies" do
@@ -21,7 +22,7 @@ execute "Add the Docker APT repository to your system" do
 end 
 
 execute "Install Latest version of Docker" do 
-  command "sudo apt-get -y install docker-ce"
+  command "sudo apt-get -y install docker.io"
 end
 
 execute "Add your user to this group " do 
